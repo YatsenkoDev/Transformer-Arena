@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aequilibrium.assignment.transfarena">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".TransfArenaApplication"
         android:allowBackup="true"
@@ -12,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".gallery.ui.GalleryActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,10 +23,10 @@
         </activity>
         <activity
             android:name=".preview.ui.PreviewActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".battle.ui.BattleActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

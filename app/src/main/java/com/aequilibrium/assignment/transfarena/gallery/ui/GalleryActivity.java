@@ -12,17 +12,22 @@ import javax.inject.Inject;
 public class GalleryActivity extends BaseActivity implements GalleryView {
 
     @Inject
-    GalleryPresenter galleryPresenter;
+    GalleryPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
-        galleryPresenter.setView(this);
+        presenter.setView(this);
     }
 
     @Override
     protected void inject() {
         ((TransfArenaApplication) getApplication()).getApplicationComponent().inject(this);
+    }
+
+    @Override
+    protected GalleryPresenter getPresenter() {
+        return presenter;
     }
 }

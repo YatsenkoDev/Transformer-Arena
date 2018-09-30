@@ -12,17 +12,22 @@ import javax.inject.Inject;
 public class PreviewActivity extends BaseActivity implements PreviewView {
 
     @Inject
-    PreviewPresenter previewPresenter;
+    PreviewPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
-        previewPresenter.setView(this);
+        presenter.setView(this);
     }
 
     @Override
     protected void inject() {
         ((TransfArenaApplication) getApplication()).getApplicationComponent().inject(this);
+    }
+
+    @Override
+    protected PreviewPresenter getPresenter() {
+        return presenter;
     }
 }
