@@ -1,7 +1,7 @@
 package com.aequilibrium.assignment.transfarena.injector;
 
 import com.aequilibrium.assignment.transfarena.battle.ui.BattleActivity;
-import com.aequilibrium.assignment.transfarena.gallery.ui.GalleryActivity;
+import com.aequilibrium.assignment.transfarena.gallery.ui.activity.GalleryActivity;
 import com.aequilibrium.assignment.transfarena.preview.ui.PreviewActivity;
 
 import javax.inject.Singleton;

@@ -1,4 +1,4 @@
-package com.aequilibrium.assignment.transfarena.gallery.callback;
+package com.aequilibrium.assignment.transfarena.service.callback;
 
 public interface TokenReceivedCallback {
 
