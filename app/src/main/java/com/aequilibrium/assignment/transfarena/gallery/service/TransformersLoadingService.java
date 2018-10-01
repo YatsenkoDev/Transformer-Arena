@@ -31,7 +31,7 @@ public class TransformersLoadingService {
         if (token == null) {
             transformersLoadedCallback.onTransformersLoaded(null);
         }
-        disposable = restApiClient.getAllTransformers(token, Constants.JSNO_CONTENT_TYPE)
+        disposable = restApiClient.getAllTransformers(token, Constants.JSON_CONTENT_TYPE)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> transformersLoadedCallback.onTransformersLoaded(response.getTransformers())

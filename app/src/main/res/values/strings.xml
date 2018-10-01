@@ -3,4 +3,20 @@
     <string name="empty_gallery">Empty team</string>
     <string name="name_and_rank_combination">%1$s (Rating: %2$d)</string>
     <string name="prepare_for_battle">Prepare for battle</string>
+    <string name="name">Name</string>
+    <string name="team">Team:</string>
+    <string name="strength">Strength: %1$d</string>
+    <string name="intelligence">Intelligence: %1$d</string>
+    <string name="speed">Speed: %1$d</string>
+    <string name="endurance">Endurance: %1$d</string>
+    <string name="rank">Rank: %1$d</string>
+    <string name="courage">Courage: %1$d</string>
+    <string name="firepower">Firepower: %1$d</string>
+    <string name="skill">Skill: %1$d</string>
+    <string name="transformers_gallery">Transformers gallery</string>
+    <string name="transformer_preview">Transformer preview</string>
+    <string name="battle_arena">Battle arena</string>
+    <string name="edit">Edit</string>
+    <string name="delete">delete</string>
+    <string name="save">Save</string>
 </resources>

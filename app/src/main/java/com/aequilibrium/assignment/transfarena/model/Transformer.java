@@ -2,7 +2,9 @@ package com.aequilibrium.assignment.transfarena.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Transformer {
+import java.io.Serializable;
+
+public class Transformer implements Serializable{
 
     private String id;
     private String name;
@@ -15,7 +17,7 @@ public class Transformer {
     private Integer firepower;
     private Integer skill;
     private String team;
-    @SerializedName("tea_icon")
+    @SerializedName("team_icon")
     private String teamIcon;
 
     public Transformer(String name, Integer strength, Integer intelligence, Integer speed, Integer endurance, Integer rank, Integer courage, Integer firepower, Integer skill, String team) {

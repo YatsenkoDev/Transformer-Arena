@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.Window;
 import android.widget.ProgressBar;
 
 import com.aequilibrium.assignment.transfarena.R;
@@ -17,6 +18,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class GalleryActivity extends BaseActivity implements GalleryView {
 
@@ -32,6 +34,7 @@ public class GalleryActivity extends BaseActivity implements GalleryView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         presenter.setView(this);
@@ -62,6 +65,11 @@ public class GalleryActivity extends BaseActivity implements GalleryView {
     @Override
     public void setViewPagerAdapter(PagerAdapter pagerAdapter) {
         pager.setAdapter(pagerAdapter);
+    }
+
+    @OnClick(R.id.add_button)
+    public void addNewClick() {
+        presenter.onAddNewClicked();
     }
 
     private void setupTabs() {
