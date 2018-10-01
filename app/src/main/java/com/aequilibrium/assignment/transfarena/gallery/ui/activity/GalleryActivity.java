@@ -1,5 +1,6 @@
 package com.aequilibrium.assignment.transfarena.gallery.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
@@ -60,6 +61,12 @@ public class GalleryActivity extends BaseActivity implements GalleryView {
     public void hideLoading() {
         loadingBar.setVisibility(View.GONE);
         setupTabs();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        presenter.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

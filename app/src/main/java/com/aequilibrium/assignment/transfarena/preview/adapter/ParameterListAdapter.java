@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 
 public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdapter.ViewHolder> {
 
+    private static final int MINIMAL_VALUE = 0;
     private final Context context;
     private Transformer transformer;
     private SparseIntArray parametersValues = new SparseIntArray();
@@ -45,7 +46,7 @@ public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdap
             @Override
             public void onProgressChanged(SeekBar seekBar, int value, boolean b) {
                 holder.parameterName.setText(context.getString(Constants.PARAMETERS.get(holder.getAdapterPosition()), value + 1));
-                parametersValues.put(holder.getAdapterPosition(), value);
+                parametersValues.put(holder.getAdapterPosition(), value + 1);
             }
 
             @Override
@@ -59,6 +60,7 @@ public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdap
             }
         });
         setupParameter(holder.parameterSeekBar, position);
+        holder.parameterSeekBar.setMax(context.getResources().getInteger(R.integer.parmeter_max_value) - 1);
     }
 
     @Override
@@ -73,35 +75,35 @@ public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdap
     private void setupParameter(SeekBar parameterSeekBar, int position) {
         switch (position) {
             case 0: {
-                parameterSeekBar.setProgress(transformer != null ? transformer.getStrength() : 0);
+                parameterSeekBar.setProgress(transformer != null ? transformer.getStrength() : MINIMAL_VALUE);
                 break;
             }
             case 1: {
-                parameterSeekBar.setProgress(transformer != null ? transformer.getIntelligence() : 0);
+                parameterSeekBar.setProgress(transformer != null ? transformer.getIntelligence() : MINIMAL_VALUE);
                 break;
             }
             case 2: {
-                parameterSeekBar.setProgress(transformer != null ? transformer.getSpeed() : 0);
+                parameterSeekBar.setProgress(transformer != null ? transformer.getSpeed() : MINIMAL_VALUE);
                 break;
             }
             case 3: {
-                parameterSeekBar.setProgress(transformer != null ? transformer.getEndurance() : 0);
+                parameterSeekBar.setProgress(transformer != null ? transformer.getEndurance() : MINIMAL_VALUE);
                 break;
             }
             case 4: {
-                parameterSeekBar.setProgress(transformer != null ? transformer.getRank() : 0);
+                parameterSeekBar.setProgress(transformer != null ? transformer.getRank() : MINIMAL_VALUE);
                 break;
             }
             case 5: {
-                parameterSeekBar.setProgress(transformer != null ? transformer.getCourage() : 0);
+                parameterSeekBar.setProgress(transformer != null ? transformer.getCourage() : MINIMAL_VALUE);
                 break;
             }
             case 6: {
-                parameterSeekBar.setProgress(transformer != null ? transformer.getFirepower() : 0);
+                parameterSeekBar.setProgress(transformer != null ? transformer.getFirepower() : MINIMAL_VALUE);
                 break;
             }
             case 7: {
-                parameterSeekBar.setProgress(transformer != null ? transformer.getSkill() : 0);
+                parameterSeekBar.setProgress(transformer != null ? transformer.getSkill() : MINIMAL_VALUE);
                 break;
             }
         }
@@ -116,7 +118,7 @@ public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdap
         ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            parameterSeekBar.setMax(context.getResources().getInteger(R.integer.parmeter_max_value) - 1);
+            parameterSeekBar.setProgress(getItemCount()); //called to trigger OnSeekBarChangeListener
         }
     }
 }

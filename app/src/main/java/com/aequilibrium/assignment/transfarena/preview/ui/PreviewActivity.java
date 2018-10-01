@@ -1,5 +1,6 @@
 package com.aequilibrium.assignment.transfarena.preview.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +10,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.aequilibrium.assignment.transfarena.R;
 import com.aequilibrium.assignment.transfarena.TransfArenaApplication;
@@ -30,9 +34,13 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     private static final float TRANSPARENT_ALPHA = 0.15f;
     private static final String TRANSFORMER_KEY = "TRANSFORMER_KEY";
 
+    private Toast nameRequiredToast;
+
     @Inject
     PreviewPresenter presenter;
 
+    @BindView(R.id.name)
+    EditText name;
     @BindView(R.id.autobot_team)
     ImageView autobotTeam;
     @BindView(R.id.decipticon_team)
@@ -52,13 +60,24 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
         return intent;
     }
 
+    @SuppressLint("ShowToast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
         setupParametersList();
+        nameRequiredToast = Toast.makeText(this, R.string.name_required, Toast.LENGTH_SHORT);
         presenter.setView(this);
         presenter.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
+        }
     }
 
     @Override
@@ -88,12 +107,6 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        presenter.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
     protected void inject() {
         ((TransfArenaApplication) getApplication()).getApplicationComponent().inject(this);
     }
@@ -116,6 +129,16 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     @Override
     public void setParametersListAdapter(RecyclerView.Adapter adapter) {
         parametersList.setAdapter(adapter);
+    }
+
+    @Override
+    public String getName() {
+        return name.getText().toString();
+    }
+
+    @Override
+    public void showNameRequiredError() {
+        nameRequiredToast.show();
     }
 
     @OnClick(R.id.autobot_team)

@@ -15,4 +15,6 @@ public interface GalleryView {
     void startActivityForResult(Intent intent, int requestCode);
 
     void setViewPagerAdapter(PagerAdapter pagerAdapter);
+
+    void showConnectionErrorMessage();
 }

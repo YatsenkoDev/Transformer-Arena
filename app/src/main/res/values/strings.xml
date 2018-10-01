@@ -19,4 +19,6 @@
     <string name="edit">Edit</string>
     <string name="delete">delete</string>
     <string name="save">Save</string>
+    <string name="connection_error">Connection error</string>
+    <string name="name_required">Please insert the Name</string>
 </resources>
