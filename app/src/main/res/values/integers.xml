@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="name_max_length">50</integer>
-    <integer name="parmeter_max_value">10</integer>
+    <integer name="parameter_max_value">10</integer>
+    <integer name="parameter_min_value">1</integer>
 </resources>

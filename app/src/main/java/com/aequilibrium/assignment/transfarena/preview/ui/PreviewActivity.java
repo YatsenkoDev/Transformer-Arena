@@ -3,6 +3,7 @@ package com.aequilibrium.assignment.transfarena.preview.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +36,7 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     private static final String TRANSFORMER_KEY = "TRANSFORMER_KEY";
 
     private Toast nameRequiredToast;
+    private boolean elementsEnabled = true;
 
     @Inject
     PreviewPresenter presenter;
@@ -74,7 +76,7 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     @Override
     protected void onPause() {
         super.onPause();
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
             imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
         }
@@ -83,7 +85,7 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(getIntent().getSerializableExtra(TRANSFORMER_KEY) != null ? R.menu.edit_menu : R.menu.save_menu, menu);
+        inflater.inflate(getTransformer() != null ? R.menu.edit_menu : R.menu.save_menu, menu);
         return true;
     }
 
@@ -137,22 +139,50 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     }
 
     @Override
+    public Transformer getTransformer() {
+        return (Transformer) getIntent().getSerializableExtra(TRANSFORMER_KEY);
+    }
+
+    @Override
+    public void selectAutobotsTeam(boolean select) {
+        autobotTeam.setAlpha(select ? NORMAL_ALPHA : TRANSPARENT_ALPHA);
+        decipticonTeam.setAlpha(select ? TRANSPARENT_ALPHA : NORMAL_ALPHA);
+    }
+
+    @Override
+    public void setupName(String name) {
+        this.name.setText(name);
+    }
+
+    @Override
+    public void enableElements(boolean enable) {
+        elementsEnabled = enable;
+        name.setClickable(enable);
+        name.setFocusable(enable);
+        name.setCursorVisible(enable);
+    }
+
+    @Override
     public void showNameRequiredError() {
         nameRequiredToast.show();
     }
 
     @OnClick(R.id.autobot_team)
     public void autobotTeamClicked() {
-        autobotTeam.setAlpha(NORMAL_ALPHA);
-        decipticonTeam.setAlpha(TRANSPARENT_ALPHA);
-        presenter.autobotTeamClicked();
+        if (elementsEnabled) {
+            autobotTeam.setAlpha(NORMAL_ALPHA);
+            decipticonTeam.setAlpha(TRANSPARENT_ALPHA);
+            presenter.autobotTeamClicked();
+        }
     }
 
     @OnClick(R.id.decipticon_team)
     public void decipticonTeamClicked() {
-        autobotTeam.setAlpha(TRANSPARENT_ALPHA);
-        decipticonTeam.setAlpha(NORMAL_ALPHA);
-        presenter.decipticonTeamClicked();
+        if (elementsEnabled) {
+            autobotTeam.setAlpha(TRANSPARENT_ALPHA);
+            decipticonTeam.setAlpha(NORMAL_ALPHA);
+            presenter.decipticonTeamClicked();
+        }
     }
 
     private void setupParametersList() {

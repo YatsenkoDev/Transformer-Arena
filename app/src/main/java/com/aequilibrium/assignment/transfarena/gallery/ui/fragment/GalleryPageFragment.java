@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aequilibrium.assignment.transfarena.R;
+import com.aequilibrium.assignment.transfarena.TransfArenaApplication;
+import com.aequilibrium.assignment.transfarena.bus.RxBus;
 import com.aequilibrium.assignment.transfarena.gallery.adapter.GalleryListAdapter;
 import com.aequilibrium.assignment.transfarena.model.Transformer;
 
@@ -19,12 +21,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class GalleryPageFragment extends Fragment {
 
     private static final String TRANSFORMERS_KEY = "TRANSFORMERS_KEY";
+
+    @Inject
+    RxBus rxBus;
 
     @BindView(R.id.list)
     RecyclerView list;
@@ -44,6 +51,9 @@ public class GalleryPageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.gallery_list, container, false);
         ButterKnife.bind(this, view);
+        if (getActivity() != null) {
+            ((TransfArenaApplication) getActivity().getApplication()).getApplicationComponent().inject(this);
+        }
         setupList();
         return view;
     }
@@ -51,7 +61,7 @@ public class GalleryPageFragment extends Fragment {
     private void setupList() {
         emptyTeam.setVisibility(View.GONE);
         list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        list.setAdapter(new GalleryListAdapter(getContext(), getTransformers()));
+        list.setAdapter(new GalleryListAdapter(getContext(), rxBus, getTransformers()));
     }
 
     private List<Transformer> getTransformers() {

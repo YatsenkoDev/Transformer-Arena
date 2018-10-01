@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aequilibrium.assignment.transfarena.R;
+import com.aequilibrium.assignment.transfarena.bus.RxBus;
+import com.aequilibrium.assignment.transfarena.bus.event.TransformerSelectedEvent;
 import com.aequilibrium.assignment.transfarena.model.Transformer;
 import com.aequilibrium.assignment.transfarena.utils.MathUtils;
 
@@ -20,10 +22,12 @@ import butterknife.ButterKnife;
 public class GalleryListAdapter extends RecyclerView.Adapter<GalleryListAdapter.ViewHolder> {
 
     private final Context context;
+    private final RxBus rxBus;
     private final List<Transformer> transformers;
 
-    public GalleryListAdapter(Context context, List<Transformer> transformers) {
+    public GalleryListAdapter(Context context, RxBus rxBus, List<Transformer> transformers) {
         this.context = context;
+        this.rxBus = rxBus;
         this.transformers = transformers;
     }
 
@@ -36,6 +40,7 @@ public class GalleryListAdapter extends RecyclerView.Adapter<GalleryListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText(context.getString(R.string.name_and_rank_combination, transformers.get(position).getName(), MathUtils.calculateOverallRating(transformers.get(position))));
+        holder.itemView.setOnClickListener(v -> rxBus.post(new TransformerSelectedEvent(transformers.get(holder.getAdapterPosition()))));
     }
 
     @Override
