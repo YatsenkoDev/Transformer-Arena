@@ -16,6 +16,8 @@ public interface GalleryView {
 
     void setViewPagerAdapter(PagerAdapter pagerAdapter);
 
+    void setCurrentTab(int tabNumber);
+
     void showConnectionErrorMessage();
 
     int getCurrentPage();

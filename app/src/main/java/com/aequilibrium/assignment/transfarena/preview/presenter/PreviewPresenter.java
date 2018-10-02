@@ -67,7 +67,7 @@ public class PreviewPresenter implements BasePresenter {
         isAutobot = true;
     }
 
-    public void decipticonTeamSelected() {
+    public void decepticonTeamSelected() {
         isAutobot = false;
     }
 
@@ -97,16 +97,17 @@ public class PreviewPresenter implements BasePresenter {
     }
 
     private Transformer getTransformerFromParams(boolean withId) {
-        return new Transformer(withId && view.getTransformer() != null ? view.getTransformer().getId() : null
-                , view.getName()
-                , adapter.getParametersValues().get(0)
+        Transformer.PowerParameters powerParameters = new Transformer.PowerParameters(adapter.getParametersValues().get(0)
                 , adapter.getParametersValues().get(1)
                 , adapter.getParametersValues().get(2)
                 , adapter.getParametersValues().get(3)
                 , adapter.getParametersValues().get(4)
                 , adapter.getParametersValues().get(5)
                 , adapter.getParametersValues().get(6)
-                , adapter.getParametersValues().get(7)
+                , adapter.getParametersValues().get(7));
+        return new Transformer(withId && view.getTransformer() != null ? view.getTransformer().getId() : null
+                , view.getName()
+                , powerParameters
                 , getTeam());
     }
 

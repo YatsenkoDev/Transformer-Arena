@@ -4,6 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/margin_default"
     tools:context=".battle.ui.BattleActivity">
+
+    <ImageView
+        android:id="@+id/autobots_team"
+        android:layout_width="@dimen/battle_team_icon_size"
+        android:layout_height="@dimen/battle_team_icon_size"
+        android:src="@drawable/symbol_autobot"
+        app:layout_constraintEnd_toStartOf="@id/vs_icon"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/vs_icon"
+        android:layout_width="@dimen/vs_icon_size"
+        android:layout_height="@dimen/vs_icon_size"
+        android:src="@drawable/ic_vs"
+        app:layout_constraintBottom_toBottomOf="@id/autobots_team"
+        app:layout_constraintEnd_toStartOf="@id/decepticons_team"
+        app:layout_constraintStart_toEndOf="@id/autobots_team"
+        app:layout_constraintTop_toTopOf="@id/autobots_team" />
+
+    <ImageView
+        android:id="@+id/decepticons_team"
+        android:layout_width="@dimen/battle_team_icon_size"
+        android:layout_height="@dimen/battle_team_icon_size"
+        android:src="@drawable/symbol_decept"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/vs_icon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="@dimen/margin_default"
+        android:src="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/autobots_team" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/battle_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_default"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/begin_battle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+    <TextView
+        android:id="@+id/begin_battle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        android:padding="@dimen/margin_default"
+        android:text="@string/let_battle_begin"
+        android:textAllCaps="true"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

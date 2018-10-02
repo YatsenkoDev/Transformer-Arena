@@ -51,6 +51,7 @@ public class ApplicationModule {
         okHttpClientBuilder.addInterceptor(interceptor);
         return okHttpClientBuilder.build();
     }
+
     @Singleton
     @Provides
     RestApiClient provideRestApiClient(OkHttpClient okHttpClient) {

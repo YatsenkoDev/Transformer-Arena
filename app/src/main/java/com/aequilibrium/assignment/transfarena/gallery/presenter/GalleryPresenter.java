@@ -2,8 +2,12 @@ package com.aequilibrium.assignment.transfarena.gallery.presenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Pair;
 
 import com.aequilibrium.assignment.transfarena.base.presenter.BasePresenter;
+import com.aequilibrium.assignment.transfarena.battle.ui.BattleActivity;
 import com.aequilibrium.assignment.transfarena.bus.RxBus;
 import com.aequilibrium.assignment.transfarena.bus.event.TransformerSelectedEvent;
 import com.aequilibrium.assignment.transfarena.gallery.adapter.GalleryPagerAdapter;
@@ -12,7 +16,10 @@ import com.aequilibrium.assignment.transfarena.gallery.ui.activity.GalleryView;
 import com.aequilibrium.assignment.transfarena.model.Transformer;
 import com.aequilibrium.assignment.transfarena.preview.presenter.PreviewPresenter;
 import com.aequilibrium.assignment.transfarena.preview.ui.PreviewActivity;
+import com.aequilibrium.assignment.transfarena.utils.Constants;
+import com.aequilibrium.assignment.transfarena.utils.TeamUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -62,7 +69,8 @@ public class GalleryPresenter implements BasePresenter {
     private void setupTransformersList(List<Transformer> transformers) {
         if (transformers != null) {
             this.transformers = transformers;
-            view.setViewPagerAdapter(new GalleryPagerAdapter(view.getSupportFragmentManager(), transformers));
+            Pair<ArrayList<Transformer>, ArrayList<Transformer>> separatedTeams = TeamUtils.separateByTeam(transformers);
+            view.setViewPagerAdapter(new GalleryPagerAdapter(view.getSupportFragmentManager(), separatedTeams.first, separatedTeams.second));
             view.hideLoading();
         } else {
             view.showConnectionErrorMessage();
@@ -84,6 +92,7 @@ public class GalleryPresenter implements BasePresenter {
                 case ADD_NEW_KEY_CODE: {
                     if (transformer != null) {
                         transformers.add(transformer);
+                        new Handler(Looper.getMainLooper()).post(() -> view.setCurrentTab(Constants.AUTOBOTS_TEAM_KEY.equals(transformer.getTeam()) ? 0 : 1));
                     }
                     break;
                 }
@@ -102,6 +111,13 @@ public class GalleryPresenter implements BasePresenter {
                 }
             }
             setupTransformersList(transformers);
+        }
+    }
+
+    public void onPrepareForBattleClicked() {
+        if (transformers != null) {
+            Pair<ArrayList<Transformer>, ArrayList<Transformer>> separatedTeams = TeamUtils.separateByTeam(transformers);
+            context.startActivity(BattleActivity.buildIntent(context, separatedTeams.first, separatedTeams.second));
         }
     }
 }

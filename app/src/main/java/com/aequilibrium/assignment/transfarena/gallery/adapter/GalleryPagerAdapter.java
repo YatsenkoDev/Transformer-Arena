@@ -14,27 +14,18 @@ import java.util.List;
 public class GalleryPagerAdapter extends FragmentStatePagerAdapter {
 
     private static final int PAGES_COUNT = 2;
-    private final ArrayList<Transformer> autobots = new ArrayList<>();
-    private final ArrayList<Transformer> decepticons = new ArrayList<>();
+    private final ArrayList<Transformer> autobots;
+    private final ArrayList<Transformer> decepticons;
 
-    public GalleryPagerAdapter(FragmentManager fm, List<Transformer> transformers) {
+    public GalleryPagerAdapter(FragmentManager fm, ArrayList<Transformer> autobots, ArrayList<Transformer> decepticons) {
         super(fm);
-        generateTeams(transformers);
+        this.autobots = autobots;
+        this.decepticons = decepticons;
     }
 
     @Override
     public Fragment getItem(int position) {
         return GalleryPageFragment.getInstance(position == 0 ? autobots : decepticons);
-    }
-
-    private void generateTeams(List<Transformer> transformers) {
-        for (Transformer transformer : transformers) {
-            if (Constants.AUTOBOTS_TEAM_KEY.equals(transformer.getTeam())) {
-                autobots.add(transformer);
-            } else if (Constants.DECEPTICONS_TEAM_KEY.equals(transformer.getTeam())) {
-                decepticons.add(transformer);
-            }
-        }
     }
 
     @Override

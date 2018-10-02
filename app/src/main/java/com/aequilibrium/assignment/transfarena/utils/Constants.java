@@ -14,6 +14,8 @@ public class Constants {
     public static final String AUTOBOTS_TEAM_KEY = "A";
     public static final String DECEPTICONS_TEAM_KEY = "D";
     public static final List<Integer> PARAMETERS = Arrays.asList(R.string.strength, R.string.intelligence, R.string.speed, R.string.endurance, R.string.rank, R.string.courage, R.string.firepower, R.string.skill);
+    public static final String AUTOBOT_AVATAR = "file:///android_asset/autobot_%1$d.png";
+    public static final String DECEPTICON_AVATAR = "file:///android_asset/decepticon_%1$d.png";
 
     private Constants() {
 

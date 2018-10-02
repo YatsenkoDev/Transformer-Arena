@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">TransfArena</string>
     <string name="empty_gallery">Empty team</string>
-    <string name="name_and_rank_combination">%1$s (Rating: %2$d)</string>
     <string name="prepare_for_battle">Prepare for battle</string>
     <string name="name">Name</string>
     <string name="team">Team:</string>
@@ -22,4 +21,12 @@
     <string name="connection_error">Connection error</string>
     <string name="name_required">Please insert the Name</string>
     <string name="delete_confirmation">Are you sure to delete transformer - %1$s</string>
+    <string name="let_battle_begin">Let the battle begin</string>
+    <string name="strength_shot">STR: %1$d</string>
+    <string name="intelligence_shot">INT: %1$d</string>
+    <string name="speed_shot">SPD: %1$d</string>
+    <string name="endurance_shot">END: %1$d</string>
+    <string name="firepower_shot">FPW: %1$d</string>
+    <string name="courage_shot">CRG: %1$d</string>
+    <string name="rating">Rating: %1$d</string>
 </resources>

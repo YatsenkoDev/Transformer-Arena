@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aequilibrium.assignment.transfarena.R;
@@ -13,6 +14,8 @@ import com.aequilibrium.assignment.transfarena.bus.RxBus;
 import com.aequilibrium.assignment.transfarena.bus.event.TransformerSelectedEvent;
 import com.aequilibrium.assignment.transfarena.model.Transformer;
 import com.aequilibrium.assignment.transfarena.utils.MathUtils;
+import com.aequilibrium.assignment.transfarena.utils.TeamUtils;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,7 +42,18 @@ public class GalleryListAdapter extends RecyclerView.Adapter<GalleryListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(context.getString(R.string.name_and_rank_combination, transformers.get(position).getName(), MathUtils.calculateOverallRating(transformers.get(position))));
+        Picasso.get().load(TeamUtils.getTransformerAvatar(transformers.get(position))).into(holder.icon);
+        holder.name.setText(transformers.get(position).getName());
+
+        holder.strength.setText(context.getString(R.string.strength_shot, transformers.get(position).getStrength()));
+        holder.intelligence.setText(context.getString(R.string.intelligence_shot, transformers.get(position).getIntelligence()));
+        holder.speed.setText(context.getString(R.string.speed_shot, transformers.get(position).getSpeed()));
+        holder.endurance.setText(context.getString(R.string.endurance_shot, transformers.get(position).getEndurance()));
+        holder.firepower.setText(context.getString(R.string.firepower_shot, transformers.get(position).getFirepower()));
+        holder.rank.setText(context.getString(R.string.rank, transformers.get(position).getRank()));
+        holder.courage.setText(context.getString(R.string.courage, transformers.get(position).getCourage()));
+        holder.skill.setText(context.getString(R.string.skill, transformers.get(position).getSkill()));
+
         holder.itemView.setOnClickListener(v -> rxBus.post(new TransformerSelectedEvent(transformers.get(holder.getAdapterPosition()))));
     }
 
@@ -49,8 +63,26 @@ public class GalleryListAdapter extends RecyclerView.Adapter<GalleryListAdapter.
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.icon)
+        ImageView icon;
         @BindView(R.id.name)
         TextView name;
+        @BindView(R.id.strength)
+        TextView strength;
+        @BindView(R.id.intelligence)
+        TextView intelligence;
+        @BindView(R.id.speed)
+        TextView speed;
+        @BindView(R.id.endurance)
+        TextView endurance;
+        @BindView(R.id.rank)
+        TextView rank;
+        @BindView(R.id.courage)
+        TextView courage;
+        @BindView(R.id.firepower)
+        TextView firepower;
+        @BindView(R.id.skill)
+        TextView skill;
 
         ViewHolder(View itemView) {
             super(itemView);

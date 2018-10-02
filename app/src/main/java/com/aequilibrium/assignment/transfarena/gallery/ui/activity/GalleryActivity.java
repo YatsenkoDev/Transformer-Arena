@@ -75,6 +75,11 @@ public class GalleryActivity extends BaseActivity implements GalleryView {
     }
 
     @Override
+    public void setCurrentTab(int tabNumber) {
+        pager.setCurrentItem(tabNumber);
+    }
+
+    @Override
     public int getCurrentPage() {
         return pager.getCurrentItem();
     }
@@ -82,6 +87,11 @@ public class GalleryActivity extends BaseActivity implements GalleryView {
     @OnClick(R.id.add_button)
     public void addNewClick() {
         presenter.onAddNewClicked();
+    }
+
+    @OnClick(R.id.prepare_battle)
+    public void prepareForBattleClick() {
+        presenter.onPrepareForBattleClicked();
     }
 
     private void setupTabs() {

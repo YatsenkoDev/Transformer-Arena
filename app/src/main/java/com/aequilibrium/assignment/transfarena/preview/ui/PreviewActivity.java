@@ -51,8 +51,8 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     TextView nameStatic;
     @BindView(R.id.autobot_team)
     ImageView autobotTeam;
-    @BindView(R.id.decipticon_team)
-    ImageView decipticonTeam;
+    @BindView(R.id.decepticon_team)
+    ImageView decepticonTeam;
     @BindView(R.id.parameters_list)
     RecyclerView parametersList;
     @BindView(R.id.loading_bar)
@@ -144,7 +144,7 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
 
     @Override
     public String getName() {
-        return nameInput.getText().toString();
+        return nameInput.getText().toString().trim();
     }
 
     @Override
@@ -155,7 +155,7 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     @Override
     public void selectAutobotsTeam(boolean select) {
         autobotTeam.setAlpha(select ? NORMAL_ALPHA : TRANSPARENT_ALPHA);
-        decipticonTeam.setAlpha(select ? TRANSPARENT_ALPHA : NORMAL_ALPHA);
+        decepticonTeam.setAlpha(select ? TRANSPARENT_ALPHA : NORMAL_ALPHA);
     }
 
     @Override
@@ -193,10 +193,10 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
         }
     }
 
-    @OnClick(R.id.decipticon_team)
-    public void decipticonTeamClicked() {
+    @OnClick(R.id.decepticon_team)
+    public void decepticonTeamClicked() {
         if (elementsEnabled) {
-            presenter.decipticonTeamSelected();
+            presenter.decepticonTeamSelected();
             selectAutobotsTeam(false);
         }
     }
@@ -215,7 +215,7 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
         if (getIntent().getBooleanExtra(IS_AUTOBOT_KEY, true)) {
             presenter.autobotTeamSelected();
         } else {
-            presenter.decipticonTeamSelected();
+            presenter.decepticonTeamSelected();
         }
     }
 }
