@@ -17,4 +17,6 @@ public interface GalleryView {
     void setViewPagerAdapter(PagerAdapter pagerAdapter);
 
     void showConnectionErrorMessage();
+
+    int getCurrentPage();
 }

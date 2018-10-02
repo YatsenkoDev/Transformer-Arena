@@ -74,6 +74,11 @@ public class GalleryActivity extends BaseActivity implements GalleryView {
         pager.setAdapter(pagerAdapter);
     }
 
+    @Override
+    public int getCurrentPage() {
+        return pager.getCurrentItem();
+    }
+
     @OnClick(R.id.add_button)
     public void addNewClick() {
         presenter.onAddNewClicked();

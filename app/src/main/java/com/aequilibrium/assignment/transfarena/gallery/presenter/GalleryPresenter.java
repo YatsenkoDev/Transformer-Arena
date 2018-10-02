@@ -13,7 +13,6 @@ import com.aequilibrium.assignment.transfarena.model.Transformer;
 import com.aequilibrium.assignment.transfarena.preview.presenter.PreviewPresenter;
 import com.aequilibrium.assignment.transfarena.preview.ui.PreviewActivity;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -71,7 +70,7 @@ public class GalleryPresenter implements BasePresenter {
     }
 
     public void onAddNewClicked() {
-        view.startActivityForResult(PreviewActivity.buildAddNewIntent(context), ADD_NEW_KEY_CODE);
+        view.startActivityForResult(PreviewActivity.buildAddNewIntent(context, view.getCurrentPage() == 0), ADD_NEW_KEY_CODE);
     }
 
     private void onTransformerSelected(TransformerSelectedEvent transformerSelectedEvent) {

@@ -36,6 +36,7 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     private static final float NORMAL_ALPHA = 1;
     private static final float TRANSPARENT_ALPHA = 0.15f;
     private static final String TRANSFORMER_KEY = "TRANSFORMER_KEY";
+    private static final String IS_AUTOBOT_KEY = "IS_AUTOBOT_KEY";
 
     private Toast nameRequiredToast;
     private boolean elementsEnabled = true;
@@ -57,8 +58,10 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     @BindView(R.id.loading_bar)
     ProgressBar loadingBar;
 
-    public static Intent buildAddNewIntent(Context context) {
-        return new Intent(context, PreviewActivity.class);
+    public static Intent buildAddNewIntent(Context context, boolean isAutobot) {
+        Intent intent = new Intent(context, PreviewActivity.class);
+        intent.putExtra(IS_AUTOBOT_KEY, isAutobot);
+        return intent;
     }
 
     public static Intent buildAddNewIntent(Context context, Transformer transformer) {
@@ -73,6 +76,7 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
         setupParametersList();
+        checkForInitialTeam();
         nameRequiredToast = Toast.makeText(this, R.string.name_required, Toast.LENGTH_SHORT);
         presenter.setView(this);
         presenter.start();
@@ -184,18 +188,16 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     @OnClick(R.id.autobot_team)
     public void autobotTeamClicked() {
         if (elementsEnabled) {
-            autobotTeam.setAlpha(NORMAL_ALPHA);
-            decipticonTeam.setAlpha(TRANSPARENT_ALPHA);
-            presenter.autobotTeamClicked();
+            presenter.autobotTeamSelected();
+            selectAutobotsTeam(true);
         }
     }
 
     @OnClick(R.id.decipticon_team)
     public void decipticonTeamClicked() {
         if (elementsEnabled) {
-            autobotTeam.setAlpha(TRANSPARENT_ALPHA);
-            decipticonTeam.setAlpha(NORMAL_ALPHA);
-            presenter.decipticonTeamClicked();
+            presenter.decipticonTeamSelected();
+            selectAutobotsTeam(false);
         }
     }
 
@@ -207,5 +209,13 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     public void setEditingModeEnabled(boolean editingModeEnabled) {
         this.editingModeEnabled = editingModeEnabled;
         invalidateOptionsMenu();
+    }
+
+    private void checkForInitialTeam() {
+        if (getIntent().getBooleanExtra(IS_AUTOBOT_KEY, true)) {
+            presenter.autobotTeamSelected();
+        } else {
+            presenter.decipticonTeamSelected();
+        }
     }
 }

@@ -44,7 +44,9 @@ public class PreviewPresenter implements BasePresenter {
 
     public void start() {
         adapter = new ParameterListAdapter(context, view.getTransformer());
-        isAutobot = view.getTransformer() == null || isAutobot(view.getTransformer().getTeam());
+        if (view.getTransformer() != null) {
+            isAutobot = isAutobot(view.getTransformer().getTeam());
+        }
         view.selectAutobotsTeam(isAutobot);
         if (view.getTransformer() != null) {
             view.setupName(view.getTransformer().getName());
@@ -61,11 +63,11 @@ public class PreviewPresenter implements BasePresenter {
         transformerUpdatingService.interrupt();
     }
 
-    public void autobotTeamClicked() {
+    public void autobotTeamSelected() {
         isAutobot = true;
     }
 
-    public void decipticonTeamClicked() {
+    public void decipticonTeamSelected() {
         isAutobot = false;
     }
 
