@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 
 import com.aequilibrium.assignment.transfarena.model.Transformer;
+import com.aequilibrium.assignment.transfarena.preview.callback.DeleteConfirmationCallback;
 
 public interface PreviewView {
 
@@ -26,6 +27,10 @@ public interface PreviewView {
     void showConnectionErrorMessage();
 
     void showNameRequiredError();
+
+    void setEditingModeEnabled(boolean editingModeEnabled);
+
+    void showConfirmationDialog(DeleteConfirmationCallback deleteConfirmationCallback, String name);
 
     void setResult(int resultCode, Intent data);
 

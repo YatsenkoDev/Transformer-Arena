@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,9 @@ public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdap
     private final Context context;
     private Transformer transformer;
     private SparseIntArray parametersValues = new SparseIntArray();
+    private SparseBooleanArray disabledElements = new SparseBooleanArray();
     private boolean elementsEnabled = true;
+
 
     public ParameterListAdapter(Context context, Transformer transformer) {
         this.context = context;
@@ -47,6 +50,9 @@ public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdap
             public void onProgressChanged(SeekBar seekBar, int value, boolean b) {
                 holder.parameterName.setText(context.getString(Constants.PARAMETERS.get(holder.getAdapterPosition()), value + 1));
                 parametersValues.put(holder.getAdapterPosition(), value + 1);
+                if (!elementsEnabled) {
+                    setupParameter(seekBar, holder.getAdapterPosition());
+                }
             }
 
             @Override
@@ -59,11 +65,9 @@ public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdap
 
             }
         });
-        setupParameter(holder.parameterSeekBar, position);
         holder.parameterSeekBar.setMax(context.getResources().getInteger(R.integer.parameter_max_value) - 1);
-        if (!elementsEnabled) {
-            holder.parameterSeekBar.setOnTouchListener((view, motionEvent) -> true);
-        }
+        setupParameter(holder.parameterSeekBar, position);
+//        disabledElements.put(position, elementsEnabled);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.aequilibrium.assignment.transfarena.preview.ui;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,12 +15,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aequilibrium.assignment.transfarena.R;
 import com.aequilibrium.assignment.transfarena.TransfArenaApplication;
 import com.aequilibrium.assignment.transfarena.base.ui.BaseActivity;
 import com.aequilibrium.assignment.transfarena.model.Transformer;
+import com.aequilibrium.assignment.transfarena.preview.callback.DeleteConfirmationCallback;
 import com.aequilibrium.assignment.transfarena.preview.presenter.PreviewPresenter;
 import com.aequilibrium.assignment.transfarena.utils.Constants;
 
@@ -37,12 +39,15 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
 
     private Toast nameRequiredToast;
     private boolean elementsEnabled = true;
+    private boolean editingModeEnabled;
 
     @Inject
     PreviewPresenter presenter;
 
-    @BindView(R.id.name)
-    EditText name;
+    @BindView(R.id.name_input)
+    EditText nameInput;
+    @BindView(R.id.name_static)
+    TextView nameStatic;
     @BindView(R.id.autobot_team)
     ImageView autobotTeam;
     @BindView(R.id.decipticon_team)
@@ -78,14 +83,14 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
         super.onPause();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
-            imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(nameInput.getWindowToken(), 0);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(getTransformer() != null ? R.menu.edit_menu : R.menu.save_menu, menu);
+        inflater.inflate(getTransformer() != null && !editingModeEnabled ? R.menu.edit_menu : R.menu.save_menu, menu);
         return true;
     }
 
@@ -135,7 +140,7 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
 
     @Override
     public String getName() {
-        return name.getText().toString();
+        return nameInput.getText().toString();
     }
 
     @Override
@@ -151,20 +156,29 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
 
     @Override
     public void setupName(String name) {
-        this.name.setText(name);
+        this.nameStatic.setText(name);
+        nameInput.setText(name);
     }
 
     @Override
     public void enableElements(boolean enable) {
         elementsEnabled = enable;
-        name.setClickable(enable);
-        name.setFocusable(enable);
-        name.setCursorVisible(enable);
+        nameStatic.setVisibility(enable ? View.INVISIBLE : View.VISIBLE);
+        nameInput.setVisibility(enable ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
     public void showNameRequiredError() {
         nameRequiredToast.show();
+    }
+
+    @Override
+    public void showConfirmationDialog(DeleteConfirmationCallback deleteConfirmationCallback, String name) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setNegativeButton(android.R.string.no, null);
+        builder.setPositiveButton(android.R.string.yes, (dialogInterface, i) -> deleteConfirmationCallback.onDeleteConfirmed());
+        builder.setMessage(getString(R.string.delete_confirmation, name));
+        builder.create().show();
     }
 
     @OnClick(R.id.autobot_team)
@@ -188,5 +202,10 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     private void setupParametersList() {
         parametersList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         parametersList.setItemViewCacheSize(Constants.PARAMETERS.size()); //to prevent view recycling and value loosing
+    }
+
+    public void setEditingModeEnabled(boolean editingModeEnabled) {
+        this.editingModeEnabled = editingModeEnabled;
+        invalidateOptionsMenu();
     }
 }

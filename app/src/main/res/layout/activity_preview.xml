@@ -10,7 +10,7 @@
         android:padding="@dimen/margin_default">
 
         <EditText
-            android:id="@+id/name"
+            android:id="@+id/name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_default_double"
@@ -19,8 +19,23 @@
             android:hint="@string/name"
             android:maxLength="@integer/name_max_length"
             android:singleLine="true"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/name_static"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_default_double"
+            android:layout_marginStart="@dimen/margin_default_double"
+            android:layout_marginTop="@dimen/margin_small"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -33,7 +48,7 @@
             app:layout_constraintEnd_toStartOf="@id/decipticon_team"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name" />
+            app:layout_constraintTop_toBottomOf="@id/name_input" />
 
         <ImageView
             android:id="@+id/decipticon_team"
@@ -45,7 +60,7 @@
             android:src="@drawable/symbol_decept"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/autobot_team"
-            app:layout_constraintTop_toBottomOf="@id/name" />
+            app:layout_constraintTop_toBottomOf="@id/name_input" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/parameters_list"

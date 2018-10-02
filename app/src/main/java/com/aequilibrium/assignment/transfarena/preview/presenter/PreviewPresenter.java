@@ -8,6 +8,7 @@ import com.aequilibrium.assignment.transfarena.model.Transformer;
 import com.aequilibrium.assignment.transfarena.preview.adapter.ParameterListAdapter;
 import com.aequilibrium.assignment.transfarena.preview.service.TransformerCreatingService;
 import com.aequilibrium.assignment.transfarena.preview.service.TransformerDeleteService;
+import com.aequilibrium.assignment.transfarena.preview.service.TransformerUpdatingService;
 import com.aequilibrium.assignment.transfarena.preview.ui.PreviewView;
 import com.aequilibrium.assignment.transfarena.utils.Constants;
 
@@ -19,17 +20,21 @@ public class PreviewPresenter implements BasePresenter {
 
     public static final String TRANSFORMER_KEY = "TRANSFORMER_KEY";
     public static final String TRANSFORMER_ID_KEY = "TRANSFORMER_ID_KEY";
+    public static final String TRANSFORMER_UPDATE_KEY = "TRANSFORMER_UPDATE_KEY";
     private final Context context;
     private final TransformerCreatingService transformerCreatingService;
+    private final TransformerUpdatingService transformerUpdatingService;
     private final TransformerDeleteService transformerDeleteService;
     private PreviewView view;
     private ParameterListAdapter adapter;
     private boolean isAutobot = true;
+    private boolean editingModeEnabled;
 
     @Inject
-    public PreviewPresenter(Context context, TransformerCreatingService transformerCreatingService, TransformerDeleteService transformerDeleteService) {
+    public PreviewPresenter(Context context, TransformerCreatingService transformerCreatingService, TransformerUpdatingService transformerUpdatingService, TransformerDeleteService transformerDeleteService) {
         this.context = context;
         this.transformerCreatingService = transformerCreatingService;
+        this.transformerUpdatingService = transformerUpdatingService;
         this.transformerDeleteService = transformerDeleteService;
     }
 
@@ -53,6 +58,7 @@ public class PreviewPresenter implements BasePresenter {
     public void onViewDestroyed() {
         transformerCreatingService.interrupt();
         transformerDeleteService.interrupt();
+        transformerUpdatingService.interrupt();
     }
 
     public void autobotTeamClicked() {
@@ -68,12 +74,29 @@ public class PreviewPresenter implements BasePresenter {
             view.showNameRequiredError();
         } else {
             view.showLoading();
-            transformerCreatingService.createTransformer(this::transformerCreated, getTransformerFromParams());
+            if (editingModeEnabled) {
+                transformerUpdatingService.updateTransformer(this::transformerCreated, getTransformerFromParams(true));
+            } else {
+                transformerCreatingService.createTransformer(this::transformerCreated, getTransformerFromParams(false));
+            }
         }
     }
 
-    private Transformer getTransformerFromParams() {
-        return new Transformer(view.getName()
+    public void onDeleteClicked() {
+        view.showConfirmationDialog(this::onDeleteConfirmed, view.getTransformer().getName());
+    }
+
+    public void onEditClicked() {
+        editingModeEnabled = true;
+        view.enableElements(true);
+        adapter.setElementsEnabled(true);
+        adapter.notifyDataSetChanged();
+        view.setEditingModeEnabled(true);
+    }
+
+    private Transformer getTransformerFromParams(boolean withId) {
+        return new Transformer(withId && view.getTransformer() != null ? view.getTransformer().getId() : null
+                , view.getName()
                 , adapter.getParametersValues().get(0)
                 , adapter.getParametersValues().get(1)
                 , adapter.getParametersValues().get(2)
@@ -98,6 +121,8 @@ public class PreviewPresenter implements BasePresenter {
             view.hideLoading();
             Intent intent = new Intent();
             intent.putExtra(TRANSFORMER_KEY, transformer);
+            intent.putExtra(TRANSFORMER_ID_KEY, transformer.getId());
+            intent.putExtra(TRANSFORMER_UPDATE_KEY, editingModeEnabled);
             view.setResult(RESULT_OK, intent);
             view.finish();
         } else {
@@ -105,10 +130,7 @@ public class PreviewPresenter implements BasePresenter {
         }
     }
 
-    public void onEditClicked() {
-    }
-
-    public void onDeleteClicked() {
+    private void onDeleteConfirmed() {
         view.showLoading();
         transformerDeleteService.deleteTransformer(this::onDeleted, view.getTransformer().getId());
     }

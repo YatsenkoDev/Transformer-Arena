@@ -13,6 +13,7 @@ import com.aequilibrium.assignment.transfarena.model.Transformer;
 import com.aequilibrium.assignment.transfarena.preview.presenter.PreviewPresenter;
 import com.aequilibrium.assignment.transfarena.preview.ui.PreviewActivity;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -79,18 +80,22 @@ public class GalleryPresenter implements BasePresenter {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
+            Transformer transformer = (Transformer) data.getSerializableExtra(PreviewPresenter.TRANSFORMER_KEY);
             switch (requestCode) {
                 case ADD_NEW_KEY_CODE: {
-                    Transformer transformer = (Transformer) data.getSerializableExtra(PreviewPresenter.TRANSFORMER_KEY);
                     if (transformer != null) {
                         transformers.add(transformer);
                     }
                     break;
                 }
                 case SELECT_KEY_CODE: {
-                    for (Transformer transformer : transformers) {
-                        if (transformer.getId().equals(data.getStringExtra(PreviewPresenter.TRANSFORMER_ID_KEY))) {
-                            transformers.remove(transformer);
+                    for (int i = 0; i < transformers.size(); i++) {
+                        if (transformers.get(i).getId().equals(data.getStringExtra(PreviewPresenter.TRANSFORMER_ID_KEY))) {
+                            if (data.getBooleanExtra(PreviewPresenter.TRANSFORMER_UPDATE_KEY, false)) {
+                                transformers.set(i, transformer);
+                            } else {
+                                transformers.remove(i);
+                            }
                             break;
                         }
                     }

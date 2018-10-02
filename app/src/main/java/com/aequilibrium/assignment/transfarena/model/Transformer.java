@@ -20,7 +20,8 @@ public class Transformer implements Serializable{
     @SerializedName("team_icon")
     private String teamIcon;
 
-    public Transformer(String name, Integer strength, Integer intelligence, Integer speed, Integer endurance, Integer rank, Integer courage, Integer firepower, Integer skill, String team) {
+    public Transformer(String id, String name, Integer strength, Integer intelligence, Integer speed, Integer endurance, Integer rank, Integer courage, Integer firepower, Integer skill, String team) {
+        this.id = id;
         this.name = name;
         this.strength = strength;
         this.intelligence = intelligence;
