@@ -20,7 +20,7 @@ public class RxBus {
     public <T> Disposable register(final Class<T> eventClass, Consumer<T> onNext) {
         return busSubject
                 .filter(event -> event.getClass().equals(eventClass))
-                .map(o -> (T)o)
+                .map(o -> (T) o)
                 .subscribe(onNext);
     }
 

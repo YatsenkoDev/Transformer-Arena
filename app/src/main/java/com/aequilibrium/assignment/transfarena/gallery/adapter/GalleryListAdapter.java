@@ -13,7 +13,6 @@ import com.aequilibrium.assignment.transfarena.R;
 import com.aequilibrium.assignment.transfarena.bus.RxBus;
 import com.aequilibrium.assignment.transfarena.bus.event.TransformerSelectedEvent;
 import com.aequilibrium.assignment.transfarena.model.Transformer;
-import com.aequilibrium.assignment.transfarena.utils.MathUtils;
 import com.aequilibrium.assignment.transfarena.utils.TeamUtils;
 import com.squareup.picasso.Picasso;
 

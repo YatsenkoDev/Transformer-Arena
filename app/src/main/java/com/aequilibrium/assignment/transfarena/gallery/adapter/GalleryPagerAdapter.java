@@ -6,10 +6,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.aequilibrium.assignment.transfarena.gallery.ui.fragment.GalleryPageFragment;
 import com.aequilibrium.assignment.transfarena.model.Transformer;
-import com.aequilibrium.assignment.transfarena.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class GalleryPagerAdapter extends FragmentStatePagerAdapter {
 

@@ -9,8 +9,8 @@
         android:id="@+id/parameter_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/font_17"
-        android:layout_marginStart="@dimen/margin_default_double" />
+        android:layout_marginStart="@dimen/margin_default_double"
+        android:textSize="@dimen/font_17" />
 
     <SeekBar
         android:id="@+id/parameter_seek_bar"

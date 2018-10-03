@@ -3,7 +3,7 @@ package com.aequilibrium.assignment.transfarena.battle.presenter;
 import android.content.Context;
 
 import com.aequilibrium.assignment.transfarena.base.presenter.BasePresenter;
-import com.aequilibrium.assignment.transfarena.battle.BattleService;
+import com.aequilibrium.assignment.transfarena.battle.service.BattleService;
 import com.aequilibrium.assignment.transfarena.battle.adapter.BattleAdapter;
 import com.aequilibrium.assignment.transfarena.battle.ui.activity.BattleView;
 import com.aequilibrium.assignment.transfarena.model.Transformer;
@@ -13,8 +13,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import io.reactivex.disposables.Disposable;
 
 public class BattlePresenter implements BasePresenter {
 

@@ -12,8 +12,8 @@
         android:id="@+id/empty_team"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:text="@string/empty_gallery"
-        android:layout_gravity="center"/>
+        android:text="@string/empty_gallery" />
 
 </FrameLayout>

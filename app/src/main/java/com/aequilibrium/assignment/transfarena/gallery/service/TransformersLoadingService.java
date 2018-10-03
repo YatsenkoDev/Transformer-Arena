@@ -35,7 +35,7 @@ public class TransformersLoadingService {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> transformersLoadedCallback.onTransformersLoaded(response.getTransformers())
-                , error -> transformersLoadedCallback.onTransformersLoaded(null));
+                        , error -> transformersLoadedCallback.onTransformersLoaded(null));
     }
 
     public void interrupt() {

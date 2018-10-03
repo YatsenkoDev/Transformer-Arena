@@ -14,7 +14,7 @@ public class MathUtils {
         return checkForNullAndReturn(transformer.getStrength())
                 + checkForNullAndReturn(transformer.getIntelligence())
                 + checkForNullAndReturn(transformer.getSpeed())
-                + checkForNullAndReturn(transformer.getEndurance() )
+                + checkForNullAndReturn(transformer.getEndurance())
                 + checkForNullAndReturn(transformer.getFirepower());
     }
 

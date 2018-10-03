@@ -1,4 +1,6 @@
-package com.aequilibrium.assignment.transfarena.battle;
+package com.aequilibrium.assignment.transfarena.battle.service;
+
+import android.support.annotation.NonNull;
 
 import com.aequilibrium.assignment.transfarena.battle.callback.BattleResultCallback;
 import com.aequilibrium.assignment.transfarena.battle.model.BattleResult;
@@ -25,14 +27,14 @@ public class BattleService {
 
     }
 
-    public void calculateBattleResult( List<Transformer> autobots, List<Transformer> decepticons, BattleResultCallback battleResultCallback) {
+    public void calculateBattleResult(List<Transformer> autobots, List<Transformer> decepticons, BattleResultCallback battleResultCallback) {
         disposable = Single.fromCallable(() -> calculateWinners(autobots, decepticons))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(battleResultCallback::onBattleResultCalculated, error -> battleResultCallback.onBattleResultCalculated(null));
     }
 
-    private BattleResult calculateWinners(List<Transformer> autobots, List<Transformer> decepticons) {
+    private BattleResult calculateWinners(@NonNull List<Transformer> autobots, @NonNull List<Transformer> decepticons) {
         List<Transformer> autobotsAfterFight = new ArrayList<>();
         List<Transformer> decepticonsAfterFight = new ArrayList<>();
         int counter = 0;

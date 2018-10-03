@@ -27,16 +27,12 @@ public class BattleActivity extends BaseActivity implements BattleView {
 
     private static final String AUTOBOTS_TEAM_KEY = "AUTOBOTS_TEAM_KEY";
     private static final String DECEPTICONS_TEAM_KEY = "DECEPTICONS_TEAM_KEY";
-
-
-    private ResultDialogFragment resultDialog;
-    private Toast emptyTeamError;
-
     @Inject
     BattlePresenter presenter;
-
     @BindView(R.id.battle_list)
     RecyclerView battleList;
+    private ResultDialogFragment resultDialog;
+    private Toast emptyTeamError;
 
     public static Intent buildIntent(Context context, ArrayList<Transformer> autobots, ArrayList<Transformer> deciptions) {
         Intent intent = new Intent(context, BattleActivity.class);
