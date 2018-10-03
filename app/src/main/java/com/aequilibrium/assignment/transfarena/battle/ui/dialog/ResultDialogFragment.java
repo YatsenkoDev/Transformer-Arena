@@ -56,7 +56,7 @@ public class ResultDialogFragment extends DialogFragment {
         loadingBar.setVisibility(View.GONE);
         battlesCountView.setText(getString(battlesCount == 1 ? R.string.battles_count_singular : R.string.battles_count_plural, battlesCount));
         winningTeamView.setText(getString(R.string.winning_team, winningTeam, StringUtils.getTransformersNames(winners)));
-        survivorsView.setText(getString(R.string.survived, losingTeam, StringUtils.getTransformersNames(survives)));
+        survivorsView.setText(getString(survives.isEmpty() ? R.string.no_survivors : R.string.survived, losingTeam, StringUtils.getTransformersNames(survives)));
     }
 
     public void notifyAboutTotalDestroy() {

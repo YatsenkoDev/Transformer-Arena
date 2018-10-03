@@ -40,4 +40,6 @@
     <string name="total_destory">It was Optimus Prime vs Predaking, no one survived.</string>
     <string name="empty_team_error">Teams cannot be empty</string>
     <string name="tie">It is a tie.</string>
+    <string name="no_survivors">No survivors in the losing team.</string>
+
 </resources>
