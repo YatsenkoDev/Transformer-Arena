@@ -34,6 +34,7 @@ public class ResultDialogFragment extends DialogFragment {
         return new ResultDialogFragment();
     }
 
+    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.battle_result)
@@ -42,6 +43,12 @@ public class ResultDialogFragment extends DialogFragment {
         ButterKnife.bind(this, view);
         builder.setView(view);
         return builder.create();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        dismiss();
     }
 
     public void setupResults(int battlesCount, String winningTeam, String losingTeam

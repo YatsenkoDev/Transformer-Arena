@@ -86,6 +86,10 @@ public class GalleryPresenter implements BasePresenter {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (transformers == null) {
+            view.recreate();
+            return;
+        }
         if (resultCode == RESULT_OK) {
             Transformer transformer = (Transformer) data.getSerializableExtra(PreviewPresenter.TRANSFORMER_KEY);
             switch (requestCode) {
@@ -117,7 +121,7 @@ public class GalleryPresenter implements BasePresenter {
     public void onPrepareForBattleClicked() {
         if (transformers != null) {
             Pair<ArrayList<Transformer>, ArrayList<Transformer>> separatedTeams = TeamUtils.separateByTeam(transformers);
-            context.startActivity(BattleActivity.buildIntent(context, separatedTeams.first, separatedTeams.second));
+            view.startActivity(BattleActivity.buildIntent(context, separatedTeams.first, separatedTeams.second));
         }
     }
 }

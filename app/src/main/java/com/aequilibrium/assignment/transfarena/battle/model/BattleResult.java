@@ -1,4 +1,6 @@
-package com.aequilibrium.assignment.transfarena.model;
+package com.aequilibrium.assignment.transfarena.battle.model;
+
+import com.aequilibrium.assignment.transfarena.model.Transformer;
 
 import java.util.List;
 
@@ -10,7 +12,8 @@ public class BattleResult {
     private final int decepticonsElimenatedOponentsCounter;
     private final boolean totalDestroy;
 
-    public BattleResult(List<Transformer> autobots, List<Transformer> decepticons, int decepticonsElimenatedOponentsCounter, int autobotsElimenatedOponentsCounter, boolean totalDestroy) {
+    public BattleResult(List<Transformer> autobots, List<Transformer> decepticons
+            , int decepticonsElimenatedOponentsCounter, int autobotsElimenatedOponentsCounter, boolean totalDestroy) {
         this.autobots = autobots;
         this.decepticons = decepticons;
         this.decepticonsElimenatedOponentsCounter = decepticonsElimenatedOponentsCounter;

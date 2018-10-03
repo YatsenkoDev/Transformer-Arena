@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,6 @@ public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdap
     private final Context context;
     private Transformer transformer;
     private SparseIntArray parametersValues = new SparseIntArray();
-    private SparseBooleanArray disabledElements = new SparseBooleanArray();
     private boolean elementsEnabled = true;
 
 
@@ -45,6 +43,7 @@ public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.parameterName.setText(context.getString(Constants.PARAMETERS.get(position), holder.parameterSeekBar.getProgress() + 1));
+        holder.parameterName.setTextColor(context.getResources().getColor(elementsEnabled ? R.color.black : R.color.grey));
         holder.parameterSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int value, boolean b) {
@@ -67,7 +66,6 @@ public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdap
         });
         holder.parameterSeekBar.setMax(context.getResources().getInteger(R.integer.parameter_max_value) - 1);
         setupParameter(holder.parameterSeekBar, position);
-//        disabledElements.put(position, elementsEnabled);
     }
 
     @Override

@@ -14,8 +14,8 @@
         android:theme="@style/MainTheme">
         <activity
             android:name=".gallery.ui.activity.GalleryActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/transformers_gallery">
+            android:label="@string/transformers_gallery"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,12 +24,12 @@
         </activity>
         <activity
             android:name=".preview.ui.PreviewActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/transformer_preview"/>
+            android:label="@string/transformer_preview"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".battle.ui.activity.BattleActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/battle_arena"/>
+            android:label="@string/battle_arena"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

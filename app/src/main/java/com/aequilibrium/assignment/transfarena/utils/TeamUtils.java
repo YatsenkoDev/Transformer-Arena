@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Pair;
 
 import com.aequilibrium.assignment.transfarena.R;
-import com.aequilibrium.assignment.transfarena.model.BattleResult;
+import com.aequilibrium.assignment.transfarena.battle.model.BattleResult;
 import com.aequilibrium.assignment.transfarena.model.Transformer;
 
 import java.util.ArrayList;

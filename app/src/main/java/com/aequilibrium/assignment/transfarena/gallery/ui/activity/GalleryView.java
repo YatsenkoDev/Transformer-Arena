@@ -21,4 +21,8 @@ public interface GalleryView {
     void showConnectionErrorMessage();
 
     int getCurrentPage();
+
+    void startActivity(Intent intent);
+
+    void recreate();
 }
