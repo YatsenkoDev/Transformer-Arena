@@ -32,13 +32,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/font_15"
-        app:layout_constraintEnd_toStartOf="@id/rating"
+        app:layout_constraintEnd_toStartOf="@id/courage"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/avatar" />
 
     <TextView
-        android:id="@+id/rating"
+        android:id="@+id/courage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/font_15"
@@ -52,13 +52,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/font_15"
-        app:layout_constraintEnd_toStartOf="@id/courage"
+        app:layout_constraintEnd_toStartOf="@id/rating"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/strength" />
 
     <TextView
-        android:id="@+id/courage"
+        android:id="@+id/rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/font_15"

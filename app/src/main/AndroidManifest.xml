@@ -27,7 +27,7 @@
             android:screenOrientation="portrait"
             android:label="@string/transformer_preview"/>
         <activity
-            android:name=".battle.ui.BattleActivity"
+            android:name=".battle.ui.activity.BattleActivity"
             android:screenOrientation="portrait"
             android:label="@string/battle_arena"/>
     </application>

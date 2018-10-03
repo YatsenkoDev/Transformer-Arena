@@ -1,6 +1,6 @@
 package com.aequilibrium.assignment.transfarena.injector;
 
-import com.aequilibrium.assignment.transfarena.battle.ui.BattleActivity;
+import com.aequilibrium.assignment.transfarena.battle.ui.activity.BattleActivity;
 import com.aequilibrium.assignment.transfarena.gallery.ui.activity.GalleryActivity;
 import com.aequilibrium.assignment.transfarena.gallery.ui.fragment.GalleryPageFragment;
 import com.aequilibrium.assignment.transfarena.preview.ui.PreviewActivity;

@@ -1,7 +1,10 @@
 package com.aequilibrium.assignment.transfarena.utils;
 
+import android.content.Context;
 import android.util.Pair;
 
+import com.aequilibrium.assignment.transfarena.R;
+import com.aequilibrium.assignment.transfarena.model.BattleResult;
 import com.aequilibrium.assignment.transfarena.model.Transformer;
 
 import java.util.ArrayList;
@@ -28,5 +31,23 @@ public class TeamUtils {
 
     public static String getTransformerAvatar(Transformer transformer) {
         return String.format(Constants.AUTOBOTS_TEAM_KEY.equals(transformer.getTeam()) ? Constants.AUTOBOT_AVATAR : Constants.DECEPTICON_AVATAR, transformer.getRank());
+    }
+
+    public static String getTeamNameByBattleResult(Context context, BattleResult battleResult, boolean winningTeam) {
+        if (battleResult.getAutobotsElimenatedOponentsCounter() > battleResult.getDecepticonsElimenatedOponentsCounter()) {
+            return winningTeam ? context.getString(R.string.autobots) : context.getString(R.string.decepticons);
+        } else {
+            return !winningTeam ? context.getString(R.string.autobots) : context.getString(R.string.decepticons);
+        }
+    }
+
+    public static List<Transformer> getWinningTem(BattleResult battleResult) {
+        return battleResult.getAutobotsElimenatedOponentsCounter() > battleResult.getDecepticonsElimenatedOponentsCounter()
+                ? battleResult.getAutobots() : battleResult.getDecepticons();
+    }
+
+    public static List<Transformer> getLoosingTem(BattleResult battleResult) {
+        return battleResult.getAutobotsElimenatedOponentsCounter() < battleResult.getDecepticonsElimenatedOponentsCounter()
+                ? battleResult.getAutobots() : battleResult.getDecepticons();
     }
 }

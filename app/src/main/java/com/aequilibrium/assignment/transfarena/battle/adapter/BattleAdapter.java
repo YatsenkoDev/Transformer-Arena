@@ -47,7 +47,6 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder
     }
 
     private void setupParamsForTeam(TeamHolder holder, @Nullable Transformer transformer) {
-        setupViewVisibility(holder, transformer != null);
         if (transformer != null) {
             Picasso.get().load(TeamUtils.getTransformerAvatar(transformer)).into(holder.avatar);
             holder.name.setText(transformer.getName());
@@ -56,15 +55,7 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder
             holder.skill.setText(context.getString(R.string.skill, transformer.getSkill()));
             holder.rating.setText(context.getString(R.string.rating, MathUtils.calculateOverallRating(transformer)));
         }
-    }
-
-    private void setupViewVisibility(TeamHolder holder, boolean visible) {
-        holder.avatar.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
-        holder.name.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
-        holder.strength.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
-        holder.courage.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
-        holder.skill.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
-        holder.rating.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+        holder.parent.setVisibility(transformer != null ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
@@ -89,6 +80,7 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder
     }
 
     class TeamHolder {
+        private View parent;
         @BindView(R.id.avatar)
         ImageView avatar;
         @BindView(R.id.name)
@@ -104,17 +96,18 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder
 
         TeamHolder(View view) {
             ButterKnife.bind(this, view);
+            parent = view;
         }
     }
 
-    class AutobotsViewHolder extends TeamHolder {
+    private class AutobotsViewHolder extends TeamHolder {
 
         AutobotsViewHolder(View view) {
             super(view);
         }
     }
 
-    class DecepticonssViewHolder extends TeamHolder {
+    private class DecepticonssViewHolder extends TeamHolder {
 
         DecepticonssViewHolder(View view) {
             super(view);

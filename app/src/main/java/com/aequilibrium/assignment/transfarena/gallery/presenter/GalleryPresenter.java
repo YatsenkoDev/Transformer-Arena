@@ -7,7 +7,7 @@ import android.os.Looper;
 import android.util.Pair;
 
 import com.aequilibrium.assignment.transfarena.base.presenter.BasePresenter;
-import com.aequilibrium.assignment.transfarena.battle.ui.BattleActivity;
+import com.aequilibrium.assignment.transfarena.battle.ui.activity.BattleActivity;
 import com.aequilibrium.assignment.transfarena.bus.RxBus;
 import com.aequilibrium.assignment.transfarena.bus.event.TransformerSelectedEvent;
 import com.aequilibrium.assignment.transfarena.gallery.adapter.GalleryPagerAdapter;

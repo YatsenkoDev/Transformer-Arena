@@ -10,7 +10,7 @@ public class MathUtils {
 
     }
 
-    public static Integer calculateOverallRating(Transformer transformer) {
+    public static int calculateOverallRating(Transformer transformer) {
         return checkForNullAndReturn(transformer.getStrength())
                 + checkForNullAndReturn(transformer.getIntelligence())
                 + checkForNullAndReturn(transformer.getSpeed())

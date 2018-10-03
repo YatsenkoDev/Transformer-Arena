@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/margin_default"
-    tools:context=".battle.ui.BattleActivity">
+    tools:context=".battle.ui.activity.BattleActivity">
 
     <ImageView
         android:id="@+id/autobots_team"
