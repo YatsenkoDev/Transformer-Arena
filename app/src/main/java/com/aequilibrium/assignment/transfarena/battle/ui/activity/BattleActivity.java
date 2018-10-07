@@ -23,6 +23,10 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * Battle arena view
+ * Responsible for teams and battle result display
+ */
 public class BattleActivity extends BaseActivity implements BattleView {
 
     private static final String AUTOBOTS_TEAM_KEY = "AUTOBOTS_TEAM_KEY";
@@ -34,6 +38,14 @@ public class BattleActivity extends BaseActivity implements BattleView {
     private ResultDialogFragment resultDialog;
     private Toast emptyTeamError;
 
+    /**
+     * Intent for activity start
+     *
+     * @param context    application context
+     * @param autobots   team 1
+     * @param deciptions team 2
+     * @return BattleActivity intent
+     */
     public static Intent buildIntent(Context context, ArrayList<Transformer> autobots, ArrayList<Transformer> deciptions) {
         Intent intent = new Intent(context, BattleActivity.class);
         intent.putExtra(AUTOBOTS_TEAM_KEY, autobots);
@@ -64,18 +76,35 @@ public class BattleActivity extends BaseActivity implements BattleView {
         return presenter;
     }
 
-
+    /**
+     * Sets adapter for teams display recyclerview
+     *
+     * @param adapter RecyclerView adapter
+     * @see com.aequilibrium.assignment.transfarena.battle.adapter.BattleAdapter
+     */
     @Override
     public void setBattleListAdapter(RecyclerView.Adapter adapter) {
         battleList.setAdapter(adapter);
     }
 
+    /**
+     * Displays battle result dialog with progress bar
+     */
     @Override
     public void showResultDialog() {
         resultDialog = ResultDialogFragment.getInstance();
         resultDialog.show(getFragmentManager(), ResultDialogFragment.TAG);
     }
 
+    /**
+     * Inserts battle result in result dialog
+     *
+     * @param battlesCount amount of battles
+     * @param winningTeam  name of winning team
+     * @param losingTeam   name of loosing team
+     * @param winners      list of winning transformers
+     * @param survives     list of survived transformers
+     */
     @Override
     public void setupResults(int battlesCount, String winningTeam, String losingTeam, List<Transformer> winners, List<Transformer> survives) {
         if (resultDialog != null && resultDialog.getDialog().isShowing()) {
@@ -83,6 +112,9 @@ public class BattleActivity extends BaseActivity implements BattleView {
         }
     }
 
+    /**
+     * Shows "Total Destroy" as a result of the battle in result dialog
+     */
     @Override
     public void notifyAboutTotalDestroy() {
         if (resultDialog != null && resultDialog.getDialog().isShowing()) {
@@ -90,11 +122,17 @@ public class BattleActivity extends BaseActivity implements BattleView {
         }
     }
 
+    /**
+     * Displays error of empty team
+     */
     @Override
     public void showEmptyTeamError() {
         emptyTeamError.show();
     }
 
+    /**
+     * Shows "Tie" as a result of the battle in result dialog
+     */
     @Override
     public void notifyAboutTie() {
         if (resultDialog != null && resultDialog.getDialog().isShowing()) {
@@ -102,6 +140,9 @@ public class BattleActivity extends BaseActivity implements BattleView {
         }
     }
 
+    /**
+     * Begin battle button click
+     */
     @OnClick(R.id.begin_battle)
     public void beginBattleClick() {
         presenter.onBeginBattleClicked();

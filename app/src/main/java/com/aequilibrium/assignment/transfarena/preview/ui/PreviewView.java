@@ -6,6 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import com.aequilibrium.assignment.transfarena.model.Transformer;
 import com.aequilibrium.assignment.transfarena.preview.callback.DeleteConfirmationCallback;
 
+/**
+ * View methods for preview presenter
+ *
+ * @see com.aequilibrium.assignment.transfarena.preview.presenter.PreviewPresenter
+ */
 public interface PreviewView {
 
     void showLoading();

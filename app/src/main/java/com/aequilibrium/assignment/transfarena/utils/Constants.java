@@ -5,6 +5,9 @@ import com.aequilibrium.assignment.transfarena.R;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * All application constant values
+ */
 public class Constants {
 
     public static final String OPTIMUS_PRIME = "Optimus Prime";

@@ -18,6 +18,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * Battle calculation service
+ */
 public class BattleService {
 
     private Disposable disposable;
@@ -27,6 +30,13 @@ public class BattleService {
 
     }
 
+    /**
+     * Calculates battle result asynchronously
+     *
+     * @param autobots             team 1
+     * @param decepticons          team 2
+     * @param battleResultCallback callback for result
+     */
     public void calculateBattleResult(List<Transformer> autobots, List<Transformer> decepticons, BattleResultCallback battleResultCallback) {
         disposable = Single.fromCallable(() -> calculateWinners(autobots, decepticons))
                 .subscribeOn(Schedulers.computation())
@@ -131,6 +141,9 @@ public class BattleService {
         return Constants.OPTIMUS_PRIME.equals(name) || Constants.PREDAKING.equals(name);
     }
 
+    /**
+     * Interrupts battle calculation process
+     */
     public void interrupt() {
         if (disposable != null) {
             disposable.dispose();

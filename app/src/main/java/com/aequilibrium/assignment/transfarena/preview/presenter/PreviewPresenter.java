@@ -16,6 +16,10 @@ import javax.inject.Inject;
 
 import static android.app.Activity.RESULT_OK;
 
+/**
+ * Presenter of the preview screen
+ * Responsible for transformer's data preview, transformer edit/delete/create actions
+ */
 public class PreviewPresenter implements BasePresenter {
 
     public static final String TRANSFORMER_KEY = "TRANSFORMER_KEY";
@@ -30,6 +34,14 @@ public class PreviewPresenter implements BasePresenter {
     private boolean isAutobot = true;
     private boolean editingModeEnabled;
 
+    /**
+     * Constructor
+     *
+     * @param context                    application context
+     * @param transformerCreatingService new transformer creation service
+     * @param transformerUpdatingService transformer editing service
+     * @param transformerDeleteService   transformer deteling service
+     */
     @Inject
     public PreviewPresenter(Context context, TransformerCreatingService transformerCreatingService, TransformerUpdatingService transformerUpdatingService, TransformerDeleteService transformerDeleteService) {
         this.context = context;
@@ -38,10 +50,18 @@ public class PreviewPresenter implements BasePresenter {
         this.transformerDeleteService = transformerDeleteService;
     }
 
+    /**
+     * Setter
+     *
+     * @param view Preview info display view
+     */
     public void setView(PreviewView view) {
         this.view = view;
     }
 
+    /**
+     * Initiates transformer details display
+     */
     public void start() {
         adapter = new ParameterListAdapter(context, view.getTransformer());
         if (view.getTransformer() != null) {
@@ -63,14 +83,23 @@ public class PreviewPresenter implements BasePresenter {
         transformerUpdatingService.interrupt();
     }
 
+    /**
+     * Sets current team as autobots
+     */
     public void autobotTeamSelected() {
         isAutobot = true;
     }
 
+    /**
+     * Sets current team as decepticons
+     */
     public void decepticonTeamSelected() {
         isAutobot = false;
     }
 
+    /**
+     * Saves transformer's data
+     */
     public void onSaveClicked() {
         if (view.getName().isEmpty()) {
             view.showNameRequiredError();
@@ -84,10 +113,16 @@ public class PreviewPresenter implements BasePresenter {
         }
     }
 
+    /**
+     * Initiates transformer removing
+     */
     public void onDeleteClicked() {
         view.showConfirmationDialog(this::onDeleteConfirmed, view.getTransformer().getName());
     }
 
+    /**
+     * Enables editing mode
+     */
     public void onEditClicked() {
         editingModeEnabled = true;
         view.enableElements(true);

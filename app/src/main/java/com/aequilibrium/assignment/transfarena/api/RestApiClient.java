@@ -13,6 +13,9 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
+/**
+ * REST client for api requests
+ */
 public interface RestApiClient {
 
     @GET("allspark")

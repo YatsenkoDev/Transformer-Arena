@@ -22,12 +22,23 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Adapter for battle list
+ * Displays two rows of competitive teams
+ * Shows Transformer's name, avatar and base battle params
+ */
 public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder> {
 
     private final Context context;
     private final List<Transformer> autobots;
     private final List<Transformer> decepticons;
 
+    /**
+     * Constructor
+     *
+     * @param autobots    list used for the left row
+     * @param decepticons list used for the right row
+     */
     public BattleAdapter(Context context, List<Transformer> autobots, List<Transformer> decepticons) {
         this.context = context;
         this.autobots = autobots;
@@ -64,12 +75,12 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private AutobotsViewHolder autobotsViewHolder;
-        private DecepticonssViewHolder decepticonsViewHolder;
         @BindView(R.id.autobots_team)
         ConstraintLayout autobotsTeam;
         @BindView(R.id.decepticons_team)
         ConstraintLayout decepticonsTeam;
+        private AutobotsViewHolder autobotsViewHolder;
+        private DecepticonssViewHolder decepticonsViewHolder;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -80,7 +91,6 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder
     }
 
     class TeamHolder {
-        private View parent;
         @BindView(R.id.avatar)
         ImageView avatar;
         @BindView(R.id.name)
@@ -93,6 +103,7 @@ public class BattleAdapter extends RecyclerView.Adapter<BattleAdapter.ViewHolder
         TextView skill;
         @BindView(R.id.rating)
         TextView rating;
+        private View parent;
 
         TeamHolder(View view) {
             ButterKnife.bind(this, view);

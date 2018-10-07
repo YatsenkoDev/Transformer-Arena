@@ -2,11 +2,13 @@ package com.aequilibrium.assignment.transfarena.model;
 
 import android.support.annotation.NonNull;
 
-import com.aequilibrium.assignment.transfarena.utils.MathUtils;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+/**
+ * Model of transformer
+ */
 public class Transformer implements Serializable, Comparable<Transformer> {
 
     private String id;
@@ -90,6 +92,9 @@ public class Transformer implements Serializable, Comparable<Transformer> {
         return rank < transformer.rank ? 1 : -1;
     }
 
+    /**
+     * Transformer params related to battle
+     */
     public static class PowerParameters {
         private Integer strength;
         private Integer intelligence;

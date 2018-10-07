@@ -21,10 +21,9 @@ import static org.mockito.Matchers.argThat;
 @RunWith(MockitoJUnitRunner.class)
 public class BattleServiceTest {
 
-    private BattleService battleService;
-
     @Mock
     BattleResultCallback battleResultCallback;
+    private BattleService battleService;
 
     @Before
     public void setup() {

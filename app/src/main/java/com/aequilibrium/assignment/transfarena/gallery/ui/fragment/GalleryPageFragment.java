@@ -26,6 +26,10 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Transformers team page view
+ * Displays one of the teams
+ */
 public class GalleryPageFragment extends Fragment {
 
     private static final String TRANSFORMERS_KEY = "TRANSFORMERS_KEY";
@@ -38,6 +42,12 @@ public class GalleryPageFragment extends Fragment {
     @BindView(R.id.empty_team)
     TextView emptyTeam;
 
+    /**
+     * Returns fragment instance with transformer list in arguments
+     *
+     * @param transformers list of transformers from the one team
+     * @return class instance
+     */
     public static GalleryPageFragment getInstance(ArrayList<Transformer> transformers) {
         GalleryPageFragment galleryPageFragment = new GalleryPageFragment();
         Bundle bundle = new Bundle();

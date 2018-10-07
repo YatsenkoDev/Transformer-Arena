@@ -13,18 +13,32 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * Token managing service
+ */
 public class TokenService {
 
     private final RestApiClient restApiClient;
     private final SharedPreferences sharedPreferences;
     private Disposable disposable;
 
+    /**
+     * Constructor
+     *
+     * @param restApiClient     REST client with token api
+     * @param sharedPreferences default shared preferences for token saving
+     */
     @Inject
     public TokenService(RestApiClient restApiClient, SharedPreferences sharedPreferences) {
         this.restApiClient = restApiClient;
         this.sharedPreferences = sharedPreferences;
     }
 
+    /**
+     * Downloads new or reads saved token
+     *
+     * @param tokenReceivedCallback callback for token value
+     */
     public void getToken(TokenReceivedCallback tokenReceivedCallback) {
         if (PreferencesUtils.getToken(sharedPreferences) != null) {
             tokenReceivedCallback.onTokenReceived(PreferencesUtils.getToken(sharedPreferences));
@@ -41,6 +55,9 @@ public class TokenService {
         }
     }
 
+    /**
+     * Interrupts token downloading
+     */
     public void interrupt() {
         if (disposable != null) {
             disposable.dispose();

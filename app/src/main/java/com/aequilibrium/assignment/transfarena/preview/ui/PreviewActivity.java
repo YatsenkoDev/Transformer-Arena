@@ -31,20 +31,18 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * Transformers data preview view
+ * Responsible for transformer's data display
+ */
 public class PreviewActivity extends BaseActivity implements PreviewView {
 
     private static final float NORMAL_ALPHA = 1;
     private static final float TRANSPARENT_ALPHA = 0.15f;
     private static final String TRANSFORMER_KEY = "TRANSFORMER_KEY";
     private static final String IS_AUTOBOT_KEY = "IS_AUTOBOT_KEY";
-
-    private Toast nameRequiredToast;
-    private boolean elementsEnabled = true;
-    private boolean editingModeEnabled;
-
     @Inject
     PreviewPresenter presenter;
-
     @BindView(R.id.name_input)
     EditText nameInput;
     @BindView(R.id.name_static)
@@ -57,13 +55,30 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
     RecyclerView parametersList;
     @BindView(R.id.loading_bar)
     ProgressBar loadingBar;
+    private Toast nameRequiredToast;
+    private boolean elementsEnabled = true;
+    private boolean editingModeEnabled;
 
+    /**
+     * Returns intent for creating new transformer
+     *
+     * @param context   application context
+     * @param isAutobot flag for new tranformer team
+     * @return intent of PreviewActivity class
+     */
     public static Intent buildAddNewIntent(Context context, boolean isAutobot) {
         Intent intent = new Intent(context, PreviewActivity.class);
         intent.putExtra(IS_AUTOBOT_KEY, isAutobot);
         return intent;
     }
 
+    /**
+     * Returns intent for transformer preview
+     *
+     * @param context     application context
+     * @param transformer selected transformer
+     * @return intent of PreviewActivity class
+     */
     public static Intent buildAddNewIntent(Context context, Transformer transformer) {
         Intent intent = new Intent(context, PreviewActivity.class);
         intent.putExtra(TRANSFORMER_KEY, transformer);
@@ -127,43 +142,80 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
         return presenter;
     }
 
+    /**
+     * Shows loading bar
+     */
     @Override
     public void showLoading() {
         loadingBar.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Hides loading bar
+     */
     @Override
     public void hideLoading() {
         loadingBar.setVisibility(View.GONE);
     }
 
+    /**
+     * Sets adapter of transformer's parameters
+     *
+     * @param adapter parmeter list adapter
+     * @see com.aequilibrium.assignment.transfarena.preview.adapter.ParameterListAdapter
+     */
     @Override
     public void setParametersListAdapter(RecyclerView.Adapter adapter) {
         parametersList.setAdapter(adapter);
     }
 
+    /**
+     * Getter of inserted name
+     *
+     * @return trimmed name
+     */
     @Override
     public String getName() {
         return nameInput.getText().toString().trim();
     }
 
+    /**
+     * Gets serialized transformer from intent
+     *
+     * @return Transformer to preview
+     */
     @Override
     public Transformer getTransformer() {
         return (Transformer) getIntent().getSerializableExtra(TRANSFORMER_KEY);
     }
 
+    /**
+     * Changes new transformer team to autobot/decepticon
+     *
+     * @param select flag if current team is autobots
+     */
     @Override
     public void selectAutobotsTeam(boolean select) {
         autobotTeam.setAlpha(select ? NORMAL_ALPHA : TRANSPARENT_ALPHA);
         decepticonTeam.setAlpha(select ? TRANSPARENT_ALPHA : NORMAL_ALPHA);
     }
 
+    /**
+     * Inerts certain name
+     *
+     * @param name transformers name for preview
+     */
     @Override
     public void setupName(String name) {
         this.nameStatic.setText(name);
         nameInput.setText(name);
     }
 
+    /**
+     * Enabled name input for editing
+     *
+     * @param enable flag of editing mode
+     */
     @Override
     public void enableElements(boolean enable) {
         elementsEnabled = enable;
@@ -171,11 +223,20 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
         nameInput.setVisibility(enable ? View.VISIBLE : View.INVISIBLE);
     }
 
+    /**
+     * Displays empty name error toast
+     */
     @Override
     public void showNameRequiredError() {
         nameRequiredToast.show();
     }
 
+    /**
+     * Shows current transformer delete conformation dialog
+     *
+     * @param deleteConfirmationCallback callback for dialog result
+     * @param name                       current transformer name
+     */
     @Override
     public void showConfirmationDialog(DeleteConfirmationCallback deleteConfirmationCallback, String name) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -185,6 +246,9 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
         builder.create().show();
     }
 
+    /**
+     * Team autobots clicked action
+     */
     @OnClick(R.id.autobot_team)
     public void autobotTeamClicked() {
         if (elementsEnabled) {
@@ -193,6 +257,9 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
         }
     }
 
+    /**
+     * Team decepticons clicked action
+     */
     @OnClick(R.id.decepticon_team)
     public void decepticonTeamClicked() {
         if (elementsEnabled) {
@@ -201,14 +268,19 @@ public class PreviewActivity extends BaseActivity implements PreviewView {
         }
     }
 
-    private void setupParametersList() {
-        parametersList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        parametersList.setItemViewCacheSize(Constants.PARAMETERS.size()); //to prevent view recycling and value loosing
-    }
-
+    /**
+     * Changes preview state to editing
+     *
+     * @param editingModeEnabled flag of editing mode
+     */
     public void setEditingModeEnabled(boolean editingModeEnabled) {
         this.editingModeEnabled = editingModeEnabled;
         invalidateOptionsMenu();
+    }
+
+    private void setupParametersList() {
+        parametersList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        parametersList.setItemViewCacheSize(Constants.PARAMETERS.size()); //to prevent view recycling and value loosing
     }
 
     private void checkForInitialTeam() {

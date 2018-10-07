@@ -21,12 +21,23 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Adapter for gallery list
+ * Shows all the transformers in the one row
+ */
 public class GalleryListAdapter extends RecyclerView.Adapter<GalleryListAdapter.ViewHolder> {
 
     private final Context context;
     private final RxBus rxBus;
     private final List<Transformer> transformers;
 
+    /**
+     * Constrictor
+     *
+     * @param context      application context
+     * @param rxBus        bus for element click event
+     * @param transformers list of transformers to display
+     */
     public GalleryListAdapter(Context context, RxBus rxBus, List<Transformer> transformers) {
         this.context = context;
         this.rxBus = rxBus;

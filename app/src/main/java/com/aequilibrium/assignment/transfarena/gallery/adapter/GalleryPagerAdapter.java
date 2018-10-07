@@ -9,12 +9,23 @@ import com.aequilibrium.assignment.transfarena.model.Transformer;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter for gallery team tabs
+ * Shows two tabs of transformer's teams
+ */
 public class GalleryPagerAdapter extends FragmentStatePagerAdapter {
 
     private static final int PAGES_COUNT = 2;
     private final ArrayList<Transformer> autobots;
     private final ArrayList<Transformer> decepticons;
 
+    /**
+     * Constructor
+     *
+     * @param fm          Fragment manager
+     * @param autobots    Autobots team
+     * @param decepticons Decepticons team
+     */
     public GalleryPagerAdapter(FragmentManager fm, ArrayList<Transformer> autobots, ArrayList<Transformer> decepticons) {
         super(fm);
         this.autobots = autobots;

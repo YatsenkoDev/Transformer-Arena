@@ -6,6 +6,11 @@ import com.aequilibrium.assignment.transfarena.model.Transformer;
 
 import java.util.List;
 
+/**
+ * View methods for battle presenter
+ *
+ * @see com.aequilibrium.assignment.transfarena.battle.presenter.BattlePresenter
+ */
 public interface BattleView {
 
     void setBattleListAdapter(RecyclerView.Adapter adapter);

@@ -4,6 +4,9 @@ import com.aequilibrium.assignment.transfarena.model.Transformer;
 
 import java.util.List;
 
+/**
+ * Model of result for battle calculation
+ */
 public class BattleResult {
 
     private final List<Transformer> autobots;

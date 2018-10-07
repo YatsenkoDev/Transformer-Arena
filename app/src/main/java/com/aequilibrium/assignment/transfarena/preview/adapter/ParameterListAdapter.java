@@ -18,6 +18,10 @@ import com.aequilibrium.assignment.transfarena.utils.Constants;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Adapter for transformer preview
+ * Displays all transformer data
+ */
 public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdapter.ViewHolder> {
 
     private final int minimalValue;
@@ -26,7 +30,12 @@ public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdap
     private SparseIntArray parametersValues = new SparseIntArray();
     private boolean elementsEnabled = true;
 
-
+    /**
+     * Constructor
+     *
+     * @param context     aplication context
+     * @param transformer selected transformer to preview or null if new transformer creation
+     */
     public ParameterListAdapter(Context context, Transformer transformer) {
         this.context = context;
         this.transformer = transformer;
@@ -73,6 +82,11 @@ public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdap
         return Constants.PARAMETERS.size();
     }
 
+    /**
+     * Getter
+     *
+     * @return array of transformer parameters values
+     */
     public SparseIntArray getParametersValues() {
         return parametersValues;
     }
@@ -114,6 +128,11 @@ public class ParameterListAdapter extends RecyclerView.Adapter<ParameterListAdap
         }
     }
 
+    /**
+     * Enables editing mode
+     *
+     * @param enabled flag enable/disable editing
+     */
     public void setElementsEnabled(boolean enabled) {
         this.elementsEnabled = enabled;
     }

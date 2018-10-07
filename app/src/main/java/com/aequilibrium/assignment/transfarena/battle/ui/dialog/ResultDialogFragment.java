@@ -17,6 +17,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Battle result dialog
+ */
 public class ResultDialogFragment extends DialogFragment {
 
     public static final String TAG = ResultDialogFragment.class.getSimpleName();
@@ -30,6 +33,9 @@ public class ResultDialogFragment extends DialogFragment {
     @BindView(R.id.survivors)
     TextView survivorsView;
 
+    /**
+     * @return ResultDialogFragment instance
+     */
     public static ResultDialogFragment getInstance() {
         return new ResultDialogFragment();
     }
@@ -51,6 +57,15 @@ public class ResultDialogFragment extends DialogFragment {
         dismiss();
     }
 
+    /**
+     * Setups result dialog data
+     *
+     * @param battlesCount amount of battles
+     * @param winningTeam  name of winning team
+     * @param losingTeam   name of loosing team
+     * @param winners      list of winning transformers
+     * @param survives     list of survived transformers
+     */
     public void setupResults(int battlesCount, String winningTeam, String losingTeam
             , List<Transformer> winners, List<Transformer> survives) {
         loadingBar.setVisibility(View.GONE);
@@ -59,10 +74,16 @@ public class ResultDialogFragment extends DialogFragment {
         survivorsView.setText(getString(survives.isEmpty() ? R.string.no_survivors : R.string.survived, losingTeam, StringUtils.getTransformersNames(survives)));
     }
 
+    /**
+     * Shows "Total Destroy" as a result of the battle in result dialog
+     */
     public void notifyAboutTotalDestroy() {
         showSimpleMessage(R.string.total_destory);
     }
 
+    /**
+     * Shows "Tie" as a result of the battle in result dialog
+     */
     public void notifyAboutTie() {
         showSimpleMessage(R.string.tie);
     }

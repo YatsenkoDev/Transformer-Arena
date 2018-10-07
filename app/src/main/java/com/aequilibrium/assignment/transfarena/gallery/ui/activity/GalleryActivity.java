@@ -21,6 +21,10 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * Transformers gallery view
+ * Responsible for transformers display
+ */
 public class GalleryActivity extends BaseActivity implements GalleryView {
 
     @Inject
@@ -52,11 +56,17 @@ public class GalleryActivity extends BaseActivity implements GalleryView {
         return presenter;
     }
 
+    /**
+     * Shows loading bar
+     */
     @Override
     public void showLoading() {
         loadingBar.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Hides loading bar
+     */
     @Override
     public void hideLoading() {
         loadingBar.setVisibility(View.GONE);
@@ -69,26 +79,48 @@ public class GalleryActivity extends BaseActivity implements GalleryView {
         presenter.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * Sets adapter for transformers teams pages display
+     *
+     * @param pagerAdapter ViewPager adapter
+     * @see com.aequilibrium.assignment.transfarena.gallery.adapter.GalleryPagerAdapter
+     */
     @Override
     public void setViewPagerAdapter(PagerAdapter pagerAdapter) {
         pager.setAdapter(pagerAdapter);
     }
 
+    /**
+     * Selects a tab
+     *
+     * @param tabNumber selected tab number
+     */
     @Override
     public void setCurrentTab(int tabNumber) {
         pager.setCurrentItem(tabNumber);
     }
 
+    /**
+     * Returns selected page number
+     *
+     * @return tab number
+     */
     @Override
     public int getCurrentPage() {
         return pager.getCurrentItem();
     }
 
+    /**
+     * Button add click
+     */
     @OnClick(R.id.add_button)
     public void addNewClick() {
         presenter.onAddNewClicked();
     }
 
+    /**
+     * Button prepare for battle click
+     */
     @OnClick(R.id.prepare_battle)
     public void prepareForBattleClick() {
         presenter.onPrepareForBattleClicked();

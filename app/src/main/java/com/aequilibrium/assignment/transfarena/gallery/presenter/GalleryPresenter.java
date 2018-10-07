@@ -28,6 +28,10 @@ import io.reactivex.disposables.Disposable;
 
 import static android.app.Activity.RESULT_OK;
 
+/**
+ * Presenter of gallery page
+ * Managaes the transformer's teams
+ */
 public class GalleryPresenter implements BasePresenter {
 
     private static final int ADD_NEW_KEY_CODE = 0;
@@ -39,6 +43,13 @@ public class GalleryPresenter implements BasePresenter {
     private List<Transformer> transformers;
     private Disposable transformerSelectedSubscriber;
 
+    /**
+     * Constructor
+     *
+     * @param context                    application context
+     * @param transformersLoadingService transformers downloading service
+     * @param rxBus                      bus for transformer selection event
+     */
     @Inject
     public GalleryPresenter(Context context, TransformersLoadingService transformersLoadingService, RxBus rxBus) {
         this.context = context;
@@ -46,10 +57,18 @@ public class GalleryPresenter implements BasePresenter {
         this.rxBus = rxBus;
     }
 
+    /**
+     * Setter
+     *
+     * @param view gallery view
+     */
     public void setView(GalleryView view) {
         this.view = view;
     }
 
+    /**
+     * Initiates transformers downloading and display
+     */
     public void start() {
         view.showLoading();
         loadTransformersToList();
@@ -77,6 +96,11 @@ public class GalleryPresenter implements BasePresenter {
         }
     }
 
+    /**
+     * Starts preview activity to create new transformer
+     *
+     * @see PreviewActivity
+     */
     public void onAddNewClicked() {
         view.startActivityForResult(PreviewActivity.buildAddNewIntent(context, view.getCurrentPage() == 0), ADD_NEW_KEY_CODE);
     }
@@ -85,6 +109,13 @@ public class GalleryPresenter implements BasePresenter {
         view.startActivityForResult(PreviewActivity.buildAddNewIntent(context, transformerSelectedEvent.getTransformer()), SELECT_KEY_CODE);
     }
 
+    /**
+     * Process transformer add or edit (expecting ADD_NEW_KEY_CODE or SELECT_KEY_CODE result keys)
+     *
+     * @param requestCode request code of activity result
+     * @param resultCode  result code of activity result
+     * @param data        can contain transformer object or update flag
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (transformers == null) {
             view.recreate();
@@ -118,6 +149,11 @@ public class GalleryPresenter implements BasePresenter {
         }
     }
 
+    /**
+     * Starts battle activity
+     *
+     * @see BattleActivity
+     */
     public void onPrepareForBattleClicked() {
         if (transformers != null) {
             Pair<ArrayList<Transformer>, ArrayList<Transformer>> separatedTeams = TeamUtils.separateByTeam(transformers);

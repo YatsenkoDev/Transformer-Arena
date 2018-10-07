@@ -4,6 +4,9 @@ import com.aequilibrium.assignment.transfarena.model.Transformer;
 
 import java.util.List;
 
+/**
+ * Utils for string operations
+ */
 public class StringUtils {
 
     private static final String NAME_SEPARTOR = ", ";
@@ -12,6 +15,12 @@ public class StringUtils {
 
     }
 
+    /**
+     * Generates single string of transformers names
+     *
+     * @param transformers list of transformers
+     * @return names string
+     */
     public static String getTransformersNames(List<Transformer> transformers) {
         String separator = "";
         StringBuilder builder = new StringBuilder();
@@ -21,9 +30,5 @@ public class StringUtils {
             separator = NAME_SEPARTOR;
         }
         return builder.toString();
-    }
-
-    public boolean isNullOrEmpty(String string) {
-        return string == null || string.isEmpty();
     }
 }
